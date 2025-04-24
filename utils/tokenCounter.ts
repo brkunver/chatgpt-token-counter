@@ -1,7 +1,5 @@
-import { encoding_for_model, TiktokenModel } from "tiktoken"
+import { encode as gpt4oEncode } from "gpt-tokenizer/model/gpt-4o"
 
-export function tokenCounter(text: string, model: TiktokenModel = "chatgpt-4o-latest"): number {
-  const encoding = encoding_for_model(model)
-  const tokens = encoding.encode(text)
-  return tokens.length
+export function tokenCounter(text: string): number {
+  return gpt4oEncode(text).length
 }
