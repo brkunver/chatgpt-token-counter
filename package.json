@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tiktoken": "^1.0.21"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.4",
