@@ -1,7 +1,12 @@
-export function pollChatMessages(callback: (userText: string, assistantText: string) => void, interval = 1000) {
+import { DEFAULT_UPDATE_INTERVAL } from "@/constants"
+
+export function pollChatMessages(
+  callback: (userText: string, assistantText: string) => void,
+  interval = DEFAULT_UPDATE_INTERVAL,
+) {
   let lastUserText = ""
   let lastAssistantText = ""
-  setInterval(() => {
+  const id = setInterval(() => {
     const userMessages = Array.from(document.querySelectorAll('[data-message-author-role="user"]')) as HTMLElement[]
     const assistantMessages = Array.from(
       document.querySelectorAll('[data-message-author-role="assistant"]'),
@@ -14,4 +19,5 @@ export function pollChatMessages(callback: (userText: string, assistantText: str
       callback(userText, assistantText)
     }
   }, interval)
+  return id
 }
