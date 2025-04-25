@@ -3,7 +3,7 @@ import App from "./App.tsx"
 import "~/assets/tailwind.css"
 
 export default defineContentScript({
-  matches: ["*://chatgpt.com/c/*"],
+  matches: ["*://chatgpt.com/*", "*://chatgpt.com/c/*"],
   cssInjectionMode: "ui",
 
   async main(ctx) {
