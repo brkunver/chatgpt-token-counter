@@ -1,0 +1,1 @@
+export const DEFAULT_UPDATE_INTERVAL = 500
