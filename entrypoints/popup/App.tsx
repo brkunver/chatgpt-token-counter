@@ -28,6 +28,7 @@ function App() {
   function onSaveChanges() {
     updateIntervalStorage.setValue(updateInterval)
     extensionActiveStorage.setValue(isExtensionActive)
+    window.close()
   }
 
   return (
