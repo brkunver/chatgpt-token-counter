@@ -6,6 +6,7 @@ export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   manifest: {
     permissions: ["storage"],
+    web_accessible_resources: [{ resources: ["fonts/*"], matches: ["*://chatgpt.com/*"] }],
   },
   vite: () => ({
     plugins: [Tailwindcss() as any],
