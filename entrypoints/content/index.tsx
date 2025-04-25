@@ -13,7 +13,19 @@ export default defineContentScript({
       anchor: "body",
       append: "first",
       onMount: container => {
-        // Don't mount react app directly on <body>
+        const fontUrl = browser.runtime.getURL("/fonts/jbmono.ttf")
+        const fontStyle = document.createElement("style")
+        fontStyle.textContent = `
+            @font-face {
+              font-family: 'JB Mono';
+              src: url('${fontUrl}') format('truetype');
+              font-weight: 400;
+              font-style: normal;
+            }
+        `
+        document.head.appendChild(fontStyle)
+        //container.shadowRoot?.appendChild(fontStyle)
+
         const wrapper = document.createElement("div")
         container.append(wrapper)
 
