@@ -1,5 +1,5 @@
 import { extensionActiveStorage, updateIntervalStorage } from "@/utils/storage-helpers"
-import { DEFAULT_UPDATE_INTERVAL } from "@/constants"
+import { DEFAULT_UPDATE_INTERVAL } from "@/utils/constants"
 
 export default defineBackground(() => {
   browser.runtime.onInstalled.addListener(details => {

@@ -4,7 +4,7 @@ import { tokenCounter } from "@/utils/token-counter"
 import { wordCounter } from "@/utils/word-counter"
 import { extensionActiveStorage, updateIntervalStorage } from "@/utils/storage-helpers"
 
-import { DEFAULT_UPDATE_INTERVAL } from "@/constants"
+import { DEFAULT_UPDATE_INTERVAL } from "@/utils/constants"
 
 export default function App() {
   const [tokenCount, setTokenCount] = useState(10)

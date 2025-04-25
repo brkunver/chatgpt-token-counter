@@ -1,4 +1,4 @@
-import { DEFAULT_UPDATE_INTERVAL } from "@/constants"
+import { DEFAULT_UPDATE_INTERVAL } from "@/utils/constants"
 
 export function pollChatMessages(
   callback: (userText: string, assistantText: string) => void,
