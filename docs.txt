@@ -141,10 +141,8 @@ npx wxt@latest init
 
 :::info Starter Templates:
 [![TypeScript Logo](https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/main/icons/typescript.svg)Vanilla](https://github.com/wxt-dev/wxt/tree/main/templates/vanilla)  
-[![Vue Logo](https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/main/icons/vue.svg)Vue](https://github.com/wxt-dev/wxt/tree/main/templates/vue)  
 [![React Logo](https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/main/icons/react.svg)React](https://github.com/wxt-dev/wxt/tree/main/templates/react)  
-[![Svelte Logo](https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/main/icons/svelte.svg)Svelte](https://github.com/wxt-dev/wxt/tree/main/templates/svelte)  
-[![Solid Logo](https://www.solidjs.com/img/favicons/favicon-32x32.png)Solid](https://github.com/wxt-dev/wxt/tree/main/templates/solid)
+
 
 All templates use TypeScript by default. To use JavaScript, change the file extensions.
 :::
@@ -2029,16 +2027,6 @@ img.src = imageUrl;
 }
 ```
 
-```vue [Vue]
-<script>
-import image from '~/assets/image.png';
-</script>
-
-<template>
-  <img :src="image" />
-</template>
-```
-
 ```jsx [JSX]
 import image from '~/assets/image.png';
 
@@ -2070,16 +2058,6 @@ img.src = imageUrl;
 .bg-image {
   background-image: url(/image.png);
 }
-```
-
-```vue [Vue]
-<template>
-  <img src="/image.png" />
-</template>
-```
-
-```jsx [JSX]
-<img src="/image.png" />
 ```
 
 :::
@@ -2418,35 +2396,6 @@ export default defineContentScript({
 });
 ```
 
-```ts [Vue]
-// entrypoints/example-ui.content/index.ts
-import { createApp } from 'vue';
-import App from './App.vue';
-
-export default defineContentScript({
-  matches: ['<all_urls>'],
-
-  main(ctx) {
-    const ui = createIntegratedUi(ctx, {
-      position: 'inline',
-      anchor: 'body',
-      onMount: (container) => {
-        // Create the app and mount it to the UI container
-        const app = createApp(App);
-        app.mount(container);
-        return app;
-      },
-      onRemove: (app) => {
-        // Unmount the app when the UI is removed
-        app.unmount();
-      },
-    });
-
-    // Call mount to add the UI to the DOM
-    ui.mount();
-  },
-});
-```
 
 ```tsx [React]
 // entrypoints/example-ui.content/index.tsx
@@ -2478,63 +2427,6 @@ export default defineContentScript({
 });
 ```
 
-```ts [Svelte]
-// entrypoints/example-ui.content/index.ts
-import App from './App.svelte';
-import { mount, unmount } from 'svelte';
-
-export default defineContentScript({
-  matches: ['<all_urls>'],
-
-  main(ctx) {
-    const ui = createIntegratedUi(ctx, {
-      position: 'inline',
-      anchor: 'body',
-      onMount: (container) => {
-        // Create the Svelte app inside the UI container
-        mount(App, {
-          target: container,
-        });
-      },
-      onRemove: (app) => {
-        // Destroy the app when the UI is removed
-        unmount(app);
-      },
-    });
-
-    // Call mount to add the UI to the DOM
-    ui.mount();
-  },
-});
-```
-
-```tsx [Solid]
-// entrypoints/example-ui.content/index.ts
-import { render } from 'solid-js/web';
-
-export default defineContentScript({
-  matches: ['<all_urls>'],
-
-  main(ctx) {
-    const ui = createIntegratedUi(ctx, {
-      position: 'inline',
-      anchor: 'body',
-      onMount: (container) => {
-        // Render your app to the UI container
-        const unmount = render(() => <div>...</div>, container);
-        return unmount;
-      },
-      onRemove: (unmount) => {
-        // Unmount the app when the UI is removed
-        unmount();
-      },
-    });
-
-    // Call mount to add the UI to the DOM
-    ui.mount();
-  },
-});
-```
 
 :::
 
@@ -2584,39 +2476,6 @@ export default defineContentScript({
 });
 ```
 
-```ts [Vue]
-// 1. Import the style
-import './style.css';
-import { createApp } from 'vue';
-import App from './App.vue';
-
-export default defineContentScript({
-  matches: ['<all_urls>'],
-  // 2. Set cssInjectionMode
-  cssInjectionMode: 'ui',
-
-  async main(ctx) {
-    // 3. Define your UI
-    const ui = await createShadowRootUi(ctx, {
-      name: 'example-ui',
-      position: 'inline',
-      anchor: 'body',
-      onMount: (container) => {
-        // Define how your UI will be mounted inside the container
-        const app = createApp(App);
-        app.mount(container);
-        return app;
-      },
-      onRemove: (app) => {
-        // Unmount the app when the UI is removed
-        app?.unmount();
-      },
-    });
-
-    // 4. Mount the UI
-    ui.mount();
-  },
-});
 ```
 
 ```tsx [React]
@@ -2649,73 +2508,6 @@ export default defineContentScript({
       onRemove: (root) => {
         // Unmount the root when the UI is removed
         root?.unmount();
-      },
-    });
-
-    // 4. Mount the UI
-    ui.mount();
-  },
-});
-```
-
-```ts [Svelte]
-// 1. Import the style
-import './style.css';
-import App from './App.svelte';
-import { mount, unmount } from 'svelte';
-
-export default defineContentScript({
-  matches: ['<all_urls>'],
-  // 2. Set cssInjectionMode
-  cssInjectionMode: 'ui',
-
-  async main(ctx) {
-    // 3. Define your UI
-    const ui = await createShadowRootUi(ctx, {
-      name: 'example-ui',
-      position: 'inline',
-      anchor: 'body',
-      onMount: (container) => {
-        // Create the Svelte app inside the UI container
-        mount(App, {
-          target: container,
-        });
-      },
-      onRemove: () => {
-        // Destroy the app when the UI is removed
-        unmount(app);
-      },
-    });
-
-    // 4. Mount the UI
-    ui.mount();
-  },
-});
-```
-
-```tsx [Solid]
-// 1. Import the style
-import './style.css';
-import { render } from 'solid-js/web';
-
-export default defineContentScript({
-  matches: ['<all_urls>'],
-  // 2. Set cssInjectionMode
-  cssInjectionMode: 'ui',
-
-  async main(ctx) {
-    // 3. Define your UI
-    const ui = await createShadowRootUi(ctx, {
-      name: 'example-ui',
-      position: 'inline',
-      anchor: 'body',
-      onMount: (container) => {
-        // Render your app to the UI container
-        const unmount = render(() => <div>...</div>, container);
-      },
-      onRemove: (unmount) => {
-        // Unmount the app when the UI is removed
-        unmount?.();
       },
     });
 
@@ -3062,7 +2854,7 @@ export default defineConfig({
 
 ## Alternatives [​](#alternatives)
 
-The vanilla API has very few features, which is why you may want to consider using third-party NPM packages like `i18next`, `react-i18n`, `vue-i18n`, etc.
+The vanilla API has very few features, which is why you may want to consider using third-party NPM packages like `i18next`, `react-i18n`, etc.
 
 However, it is recommended you stick with the vanilla API (or a package based on top of the vanilla API, like [@wxt-dev/i18n](/i18n.html)), because:
 
@@ -3391,10 +3183,8 @@ You should also look through the code of modules other people have written and p
 
 * [@wxt-dev/auto-icons](https://github.com/wxt-dev/wxt/blob/main/packages/auto-icons)
 * [@wxt-dev/i18n](https://github.com/wxt-dev/wxt/blob/main/packages/i18n)
-* [@wxt-dev/module-vue](https://github.com/wxt-dev/wxt/blob/main/packages/module-vue)
-* [@wxt-dev/module-solid](https://github.com/wxt-dev/wxt/blob/main/packages/module-solid)
 * [@wxt-dev/module-react](https://github.com/wxt-dev/wxt/blob/main/packages/module-react)
-* [@wxt-dev/module-svelte](https://github.com/wxt-dev/wxt/blob/main/packages/module-svelte)
+
 
 ---
 url: /guide/essentials/frontend-frameworks.html
@@ -3408,9 +3198,6 @@ title: Frontend Frameworks
 WXT has preconfigured modules for the most popular frontend frameworks:
 
 * [@wxt-dev/module-react](https://github.com/wxt-dev/wxt/tree/main/packages/module-react)
-* [@wxt-dev/module-vue](https://github.com/wxt-dev/wxt/tree/main/packages/module-vue)
-* [@wxt-dev/module-svelte](https://github.com/wxt-dev/wxt/tree/main/packages/module-svelte)
-* [@wxt-dev/module-solid](https://github.com/wxt-dev/wxt/tree/main/packages/module-solid)
 
 Install the module for your framework, then add it to your config:
 
@@ -3421,30 +3208,6 @@ import { defineConfig } from 'wxt';
 
 export default defineConfig({
   modules: ['@wxt-dev/module-react'],
-});
-```
-
-```ts [Vue]
-import { defineConfig } from 'wxt';
-
-export default defineConfig({
-  modules: ['@wxt-dev/module-vue'],
-});
-```
-
-```ts [Svelte]
-import { defineConfig } from 'wxt';
-
-export default defineConfig({
-  modules: ['@wxt-dev/module-svelte'],
-});
-```
-
-```ts [Solid]
-import { defineConfig } from 'wxt';
-
-export default defineConfig({
-  modules: ['@wxt-dev/module-solid'],
 });
 ```
 
@@ -3500,9 +3263,6 @@ Instead, you need to configure the router to run in "hash" mode, where the routi
 Refer to your router's docs for information about hash mode and how to enable it. Here's a non-extensive list of a few popular routers:
 
 * [react-router](https://reactrouter.com/en/main/routers/create-hash-router)
-* [vue-router](https://router.vuejs.org/guide/essentials/history-mode.html#Hash-Mode)
-* [svelte-spa-router](https://www.npmjs.com/package/svelte-spa-router#hash-based-routing)
-* [solid-router](https://github.com/solidjs/solid-router?tab=readme-ov-file#hash-mode-router)
 
 ---
 url: /guide/essentials/es-modules.html
@@ -4120,22 +3880,7 @@ const ui = await create`ShadowRoot`Ui(ctx, {
 This is mostly caused by `Teleport` or `Portal` components that render an element somewhere else in the DOM, usually in the document's `<body>`. This is usually done for dialogs or popover components. This renders the element is outside the `ShadowRoot`, so styles are not applied to it.  
 To fix this, **you need to both provide a target to your app AND pass the target to the `Teleport`/`Portal`**.  
 First, store the reference to the `ShadowRoot`'s `<body>` element (not the document's `<body>`):  
-:::code-group  
-```ts [Vue]  
-import { createApp } from 'vue';  
-import App from './App.vue';  
-const ui = await create`ShadowRoot`Ui(ctx, {  
-  // ...  
-  onMount: (container, shadow) => {  
-    const teleportTarget = shadow.querySelector('body')!;  
-    const app = createApp(App)  
-      .provide('TeleportTarget', teleportTarget)  
-      .mount(container);  
-    return app;  
-  },  
-});  
-ui.mount();  
-```  
+:::code-group   
 ```tsx [React]  
 // hooks/PortalTargetContext.ts  
 import { createContext } from 'react';  
@@ -4162,19 +3907,6 @@ ui.mount();
 :::  
 Then use the reference when teleporting/portaling part of your UI to a different place in the DOM:  
 :::code-group  
-```vue [Vue]  
-<script lang="ts" setup>  
-import { Teleport } from 'vue';  
-const teleportTarget = inject('TeleportTarget');  
-</script>  
-<template>  
-  <div>  
-    <Teleport :to="teleportTarget">  
-      <dialog>My dialog</dialog>  
-    </Teleport>  
-  </div>  
-</template>  
-```  
 ```tsx [React]  
 import { useContext } from 'react';  
 import { createPortal } from 'react-dom';  
