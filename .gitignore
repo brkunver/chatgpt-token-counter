@@ -26,3 +26,4 @@ stats-*.json
 *.sw?
 
 .windsurfrules
+.cursorrules
