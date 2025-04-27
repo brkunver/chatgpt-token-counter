@@ -2,7 +2,7 @@
   "name": "ChatGPT Token Counter",
   "description": "ChatGPT Token Counter",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",
