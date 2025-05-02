@@ -1,4 +1,4 @@
-@import "tailwindcss" important;
+@import "tailwindcss";
 
 @theme {
   --font-main: "JB Mono", serif;
