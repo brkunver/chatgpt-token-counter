@@ -38,6 +38,6 @@ export default defineContentScript({
         elements?.wrapper.remove()
       },
     })
-    ui.mount()
+    ui.autoMount()
   },
 })
