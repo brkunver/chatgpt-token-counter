@@ -8,7 +8,7 @@ export default defineContentScript({
 
   async main(ctx) {
     const ui = await createShadowRootUi(ctx, {
-      name: "token-counter",
+      name: "token-counter-shadow-ui",
       position: "inline",
       anchor: "body",
       onMount: container => {
@@ -35,6 +35,8 @@ export default defineContentScript({
         root?.unmount()
       },
     })
-    ui.mount()
+    setTimeout(() => {
+      ui.mount()
+    }, 1000)
   },
 })
