@@ -3,7 +3,7 @@ import App from "./App.tsx"
 import "~/assets/tailwind.css"
 
 export default defineContentScript({
-  matches: ["*://chatgpt.com/*", "*://chatgpt.com/c/*"],
+  matches: ["*://chatgpt.com/*"],
   cssInjectionMode: "ui",
 
   async main(ctx) {
@@ -11,7 +11,6 @@ export default defineContentScript({
       name: "token-counter",
       position: "inline",
       anchor: "body",
-      append: "first",
       onMount: container => {
         const fontUrl = browser.runtime.getURL("/fonts/jbmono.ttf")
         const fontStyle = document.createElement("style")
@@ -24,20 +23,18 @@ export default defineContentScript({
             }
         `
         document.head.appendChild(fontStyle)
-        //container.shadowRoot?.appendChild(fontStyle)
 
-        const wrapper = document.createElement("div")
-        container.append(wrapper)
+        const app = document.createElement("div")
+        container.append(app)
 
-        const root = ReactDOM.createRoot(wrapper)
+        const root = ReactDOM.createRoot(app)
         root.render(<App />)
-        return { root, wrapper }
+        return root
       },
-      onRemove: elements => {
-        elements?.root.unmount()
-        elements?.wrapper.remove()
+      onRemove: root => {
+        root?.unmount()
       },
     })
-    ui.autoMount()
+    ui.mount()
   },
 })
