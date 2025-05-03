@@ -1,0 +1,12 @@
+extName: "ChatGPT टोकन काउंटर"
+extDescription: "ChatGPT बातचीत में टोकन को रीयल टाइम में गिनें"
+
+popup:
+  settings: "सेटिंग्स"
+  extensionStatus: "एक्सटेंशन की स्थिति"
+  updateInterval: "अपडेट अंतराल (मिली सेकंड):"
+  saveChanges: "परिवर्तन सहेजें"
+
+content:
+  tokens: "टोकन"
+  words: "शब्द"

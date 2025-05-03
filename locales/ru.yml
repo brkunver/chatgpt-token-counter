@@ -1,0 +1,12 @@
+extName: "Счетчик Токенов ChatGPT"
+extDescription: "Подсчет токенов в реальном времени в разговоре ChatGPT"
+
+popup:
+  settings: "Настройки"
+  extensionStatus: "Статус Расширения"
+  updateInterval: "Интервал Обновления (мс):"
+  saveChanges: "Сохранить Изменения"
+
+content:
+  tokens: "Токены"
+  words: "Слова"

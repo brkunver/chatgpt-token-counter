@@ -1,0 +1,12 @@
+extName: "ChatGPTトークンカウンター"
+extDescription: "ChatGPTの会話でリアルタイムにトークンをカウント"
+
+popup:
+  settings: "設定"
+  extensionStatus: "拡張機能の状態"
+  updateInterval: "更新間隔 (ミリ秒):"
+  saveChanges: "変更を保存"
+
+content:
+  tokens: "トークン"
+  words: "単語"

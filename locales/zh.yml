@@ -1,0 +1,12 @@
+extName: "ChatGPT 令牌计数器"
+extDescription: "实时统计 ChatGPT 对话中的令牌数"
+
+popup:
+  settings: "设置"
+  extensionStatus: "扩展状态"
+  updateInterval: "更新间隔 (毫秒):"
+  saveChanges: "保存更改"
+
+content:
+  tokens: "令牌"
+  words: "单词"

@@ -1,0 +1,12 @@
+extName: "ChatGPT Token Sayacı"
+extDescription: "ChatGPT konuşmasında token'ları gerçek zamanlı olarak say"
+
+popup:
+  settings: "Ayarlar"
+  extensionStatus: "Uzantı Durumu"
+  updateInterval: "Güncelleme Aralığı (ms):"
+  saveChanges: "Değişiklikleri Kaydet"
+
+content:
+  tokens: "Token'lar"
+  words: "Kelimeler"

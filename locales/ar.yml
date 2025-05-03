@@ -1,0 +1,12 @@
+extName: "عداد رموز ChatGPT"
+extDescription: "عد الرموز في محادثة ChatGPT في الوقت الفعلي"
+
+popup:
+  settings: "الإعدادات"
+  extensionStatus: "حالة الامتداد"
+  updateInterval: "فاصل التحديث (مللي ثانية):"
+  saveChanges: "حفظ التغييرات"
+
+content:
+  tokens: "الرموز"
+  words: "الكلمات"
