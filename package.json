@@ -1,6 +1,6 @@
 {
   "name": "ChatGPT Token Counter",
-  "description": "ChatGPT Token Counter",
+  "description": "Count tokens in real time on chatgpt conversation",
   "private": true,
   "version": "1.0.1",
   "type": "module",
@@ -15,6 +15,7 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@wxt-dev/i18n": "^0.2.3",
     "gpt-tokenizer": "^2.9.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
