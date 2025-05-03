@@ -6,6 +6,8 @@ import { extensionActiveStorage, updateIntervalStorage } from "@/utils/storage-h
 
 import { DEFAULT_UPDATE_INTERVAL } from "@/utils/constants"
 
+import { i18n } from "#imports"
+
 export default function App() {
   const [tokenCount, setTokenCount] = useState(0)
   const [characterCount, setCharacterCount] = useState(0)
@@ -59,12 +61,12 @@ export default function App() {
     >
       <p className="flex justify-between gap-2">
         <span>{tokenCount}</span>
-        <span className="text-gray-400">Tokens</span>
+        <span className="text-gray-400">{i18n.t("content.tokens")}</span>
       </p>
 
       <p className="flex justify-between gap-2">
         <span>{characterCount}</span>
-        <span className="text-gray-400">Words</span>
+        <span className="text-gray-400">{i18n.t("content.words")}</span>
       </p>
     </div>
   )

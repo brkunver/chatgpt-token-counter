@@ -1,2 +1,12 @@
 extName: "ChatGPT Token Counter"
 extDescription: "Count tokens in real time on chatgpt conversation"
+
+popup:
+  settings: "Settings"
+  extensionStatus: "Extension Status"
+  updateInterval: "Update Interval (ms):"
+  saveChanges: "Save Changes"
+
+content:
+  tokens: "Tokens"
+  words: "Words"

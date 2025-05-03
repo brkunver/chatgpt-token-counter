@@ -1,5 +1,6 @@
 import { extensionActiveStorage, updateIntervalStorage } from "@/utils/storage-helpers"
 import Toggle from "@/components/toggle"
+import { i18n } from "#imports"
 
 function App() {
   const [updateInterval, setUpdateInterval] = useState<number>(1000)
@@ -33,17 +34,17 @@ function App() {
 
   return (
     <main className="flex min-w-[320px] flex-col gap-6 rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-200 p-6 shadow-xl">
-      <h1 className="mb-2 text-center text-3xl font-bold tracking-tight text-gray-900">Chatgpt Token Counter</h1>
-      <h2 className="mb-4 text-center text-lg font-semibold text-gray-700">Settings</h2>
+      <h1 className="mb-2 text-center text-3xl font-bold tracking-tight text-gray-900">{i18n.t("extName")}</h1>
+      <h2 className="mb-4 text-center text-lg font-semibold text-gray-700">{i18n.t("popup.settings")}</h2>
       <div className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm">
         <Toggle checked={isExtensionActive} onChange={setIsExtensionActive} id="extension-active" />
         <label htmlFor="extension-active" className="text-base font-medium text-gray-800 select-none">
-          Extension Status
+          {i18n.t("popup.extensionStatus")}
         </label>
       </div>
       <div className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm">
         <label htmlFor="update-interval" className="text-base font-medium text-gray-800 select-none">
-          Update Interval (ms):
+          {i18n.t("popup.updateInterval")}
         </label>
         <input
           type="number"
@@ -60,7 +61,7 @@ function App() {
         className="mt-2 w-full cursor-pointer rounded-lg bg-green-500 py-2 font-semibold text-white shadow-md transition-colors hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:outline-none active:bg-green-700"
         onClick={onSaveChanges}
       >
-        Save Changes
+        {i18n.t("popup.saveChanges")}
       </button>
     </main>
   )
