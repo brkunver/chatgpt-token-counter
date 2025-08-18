@@ -1,0 +1,12 @@
+extName: "ChatGPT Tokenenteller"
+extDescription: "Tel tokens in realtime in ChatGPT-gesprekken"
+
+popup:
+  settings: "Instellingen"
+  extensionStatus: "Extensiestatus"
+  updateInterval: "Update-interval (ms):"
+  saveChanges: "Wijzigingen opslaan"
+
+content:
+  tokens: "Tokens"
+  words: "Woorden"

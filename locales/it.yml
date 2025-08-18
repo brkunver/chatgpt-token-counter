@@ -1,0 +1,12 @@
+extName: "Contatore Token ChatGPT"
+extDescription: "Conta i token in tempo reale nella conversazione di ChatGPT"
+
+popup:
+  settings: "Impostazioni"
+  extensionStatus: "Stato dell'estensione"
+  updateInterval: "Intervallo di aggiornamento (ms):"
+  saveChanges: "Salva modifiche"
+
+content:
+  tokens: "Token"
+  words: "Parole"
