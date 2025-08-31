@@ -30,5 +30,9 @@
     "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2",
     "wxt": "^0.20.8"
-  }
+  },
+  "trustedDependencies": [
+    "@tailwindcss/oxide",
+    "spawn-sync"
+  ]
 }
