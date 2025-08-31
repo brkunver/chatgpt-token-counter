@@ -1,7 +1,7 @@
 {
   "name": "ChatGPT Token Counter",
   "description": "Count tokens in real time on chatgpt conversation",
-  "private": true,
+  "private": false,
   "version": "1.1.1",
   "type": "module",
   "scripts": {
