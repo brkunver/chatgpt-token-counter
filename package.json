@@ -1,5 +1,5 @@
 {
-  "name": "ChatGPT Token Counter",
+  "name": "chatgpt-token-counter",
   "description": "Count tokens in real time on chatgpt conversation",
   "private": false,
   "version": "1.1.1",
