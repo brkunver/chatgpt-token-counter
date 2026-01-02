@@ -6,7 +6,12 @@ popup:
   extensionStatus: "확장 프로그램 상태"
   updateInterval: "업데이트 간격 (ms):"
   saveChanges: "변경 사항 저장"
+  countMode: "카운트 모드:"
+  words: "단어"
+  characters: "문자"
 
 content:
   tokens: "토큰"
   words: "단어"
+  characters: "문자"
+

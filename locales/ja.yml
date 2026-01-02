@@ -6,7 +6,12 @@ popup:
   extensionStatus: "拡張機能の状態"
   updateInterval: "更新間隔 (ミリ秒):"
   saveChanges: "変更を保存"
+  countMode: "カウントモード:"
+  words: "単語"
+  characters: "文字"
 
 content:
   tokens: "トークン"
   words: "単語"
+  characters: "文字"
+

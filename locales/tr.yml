@@ -6,7 +6,12 @@ popup:
   extensionStatus: "Uzantı Durumu"
   updateInterval: "Güncelleme Aralığı (ms):"
   saveChanges: "Değişiklikleri Kaydet"
+  countMode: "Sayaç Modu:"
+  words: "Kelimeler"
+  characters: "Karakterler"
 
 content:
   tokens: "Token'lar"
   words: "Kelimeler"
+  characters: "Karakterler"
+

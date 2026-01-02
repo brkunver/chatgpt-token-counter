@@ -6,7 +6,12 @@ popup:
   extensionStatus: "Erweiterungsstatus"
   updateInterval: "Aktualisierungsintervall (ms):"
   saveChanges: "Änderungen Speichern"
+  countMode: "Zählmodus:"
+  words: "Wörter"
+  characters: "Zeichen"
 
 content:
   tokens: "Tokens"
   words: "Wörter"
+  characters: "Zeichen"
+

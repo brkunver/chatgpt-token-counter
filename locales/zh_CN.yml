@@ -6,7 +6,12 @@ popup:
   extensionStatus: "扩展状态"
   updateInterval: "更新间隔 (毫秒):"
   saveChanges: "保存更改"
+  countMode: "计数模式:"
+  words: "单词"
+  characters: "字符"
 
 content:
   tokens: "令牌"
   words: "单词"
+  characters: "字符"
+

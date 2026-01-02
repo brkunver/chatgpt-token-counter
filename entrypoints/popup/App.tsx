@@ -1,16 +1,18 @@
-import { extensionActiveStorage, updateIntervalStorage } from "@/utils/storage-helpers"
+import { extensionActiveStorage, updateIntervalStorage, countModeStorage, type CountMode } from "@/utils/storage-helpers"
 import Toggle from "@/components/toggle"
 import { i18n } from "#imports"
 
 function App() {
   const [updateInterval, setUpdateInterval] = useState<number>(1000)
   const [isExtensionActive, setIsExtensionActive] = useState<boolean>(true)
+  const [countMode, setCountMode] = useState<CountMode>("words")
 
-  console.log(isExtensionActive, updateInterval)
+  console.log(isExtensionActive, updateInterval, countMode)
 
   useEffect(() => {
     extensionActiveStorage.watch(value => setIsExtensionActive(value))
     updateIntervalStorage.watch(value => setUpdateInterval(value))
+    countModeStorage.watch(value => setCountMode(value))
 
     async function InitActive() {
       let isActive = await extensionActiveStorage.getValue()
@@ -22,13 +24,20 @@ function App() {
       setUpdateInterval(interval)
     }
 
+    async function InitCountMode() {
+      let mode = await countModeStorage.getValue()
+      setCountMode(mode)
+    }
+
     InitActive()
     InitInterval()
+    InitCountMode()
   }, [])
 
   function onSaveChanges() {
     updateIntervalStorage.setValue(updateInterval)
     extensionActiveStorage.setValue(isExtensionActive)
+    countModeStorage.setValue(countMode)
     window.close()
   }
 
@@ -57,6 +66,20 @@ function App() {
           className="w-28 rounded-md border border-gray-300 bg-gray-50 px-2 py-1 text-base text-gray-900 focus:border-green-400 focus:ring-2 focus:ring-green-400 focus:outline-none"
         />
       </div>
+      <div className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm">
+        <label htmlFor="count-mode" className="text-base font-medium text-gray-800 select-none">
+          {i18n.t("popup.countMode")}
+        </label>
+        <select
+          id="count-mode"
+          value={countMode}
+          onChange={e => setCountMode(e.target.value as CountMode)}
+          className="rounded-md border border-gray-300 bg-gray-50 px-2 py-1 text-base text-gray-900 focus:border-green-400 focus:ring-2 focus:ring-green-400 focus:outline-none"
+        >
+          <option value="words">{i18n.t("popup.words")}</option>
+          <option value="characters">{i18n.t("popup.characters")}</option>
+        </select>
+      </div>
       <button
         className="mt-2 w-full cursor-pointer rounded-lg bg-green-500 py-2 font-semibold text-white shadow-md transition-colors hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:outline-none active:bg-green-700"
         onClick={onSaveChanges}
@@ -68,3 +91,4 @@ function App() {
 }
 
 export default App
+

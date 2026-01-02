@@ -6,7 +6,12 @@ popup:
   extensionStatus: "एक्सटेंशन की स्थिति"
   updateInterval: "अपडेट अंतराल (मिली सेकंड):"
   saveChanges: "परिवर्तन सहेजें"
+  countMode: "गिनती मोड:"
+  words: "शब्द"
+  characters: "अक्षर"
 
 content:
   tokens: "टोकन"
   words: "शब्द"
+  characters: "अक्षर"
+

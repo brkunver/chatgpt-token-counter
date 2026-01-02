@@ -6,7 +6,12 @@ popup:
   extensionStatus: "Extensiestatus"
   updateInterval: "Update-interval (ms):"
   saveChanges: "Wijzigingen opslaan"
+  countMode: "Telmodus:"
+  words: "Woorden"
+  characters: "Tekens"
 
 content:
   tokens: "Tokens"
   words: "Woorden"
+  characters: "Tekens"
+

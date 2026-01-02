@@ -6,7 +6,12 @@ popup:
   extensionStatus: "Статус Расширения"
   updateInterval: "Интервал Обновления (мс):"
   saveChanges: "Сохранить Изменения"
+  countMode: "Режим Подсчета:"
+  words: "Слова"
+  characters: "Символы"
 
 content:
   tokens: "Токены"
   words: "Слова"
+  characters: "Символы"
+

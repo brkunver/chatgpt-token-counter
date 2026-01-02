@@ -6,7 +6,12 @@ popup:
   extensionStatus: "حالة الامتداد"
   updateInterval: "فاصل التحديث (مللي ثانية):"
   saveChanges: "حفظ التغييرات"
+  countMode: "وضع العد:"
+  words: "الكلمات"
+  characters: "الأحرف"
 
 content:
   tokens: "الرموز"
   words: "الكلمات"
+  characters: "الأحرف"
+
