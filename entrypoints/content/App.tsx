@@ -28,11 +28,11 @@ export default function App() {
     let intervalId: NodeJS.Timeout
 
     const startPolling = () => {
-      intervalId = pollChatMessages((userText, assistantText) => {
-        const allText = userText + " " + assistantText
-        setTokenCount(tokenCounter(allText))
-        setWordCount(wordCounter(allText))
-        setCharCount(characterCounter(allText))
+      intervalId = pollChatMessages(messages => {
+        const conversationText = messages.join("\n")
+        setTokenCount(tokenCounter(conversationText))
+        setWordCount(wordCounter(conversationText))
+        setCharCount(characterCounter(conversationText))
       }, countInterval)
     }
 
