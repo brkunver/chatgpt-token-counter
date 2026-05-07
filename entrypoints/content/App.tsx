@@ -3,7 +3,12 @@ import { pollChatMessages } from "@/utils/poll-chat-messages"
 import { tokenCounter } from "@/utils/token-counter"
 import { wordCounter } from "@/utils/word-counter"
 import { characterCounter } from "@/utils/character-counter"
-import { extensionActiveStorage, updateIntervalStorage, countModeStorage, type CountMode } from "@/utils/storage-helpers"
+import {
+  extensionActiveStorage,
+  updateIntervalStorage,
+  countModeStorage,
+  type CountMode,
+} from "@/utils/storage-helpers"
 
 import { DEFAULT_UPDATE_INTERVAL } from "@/utils/constants"
 
@@ -84,4 +89,3 @@ export default function App() {
     </div>
   )
 }
-

@@ -1,4 +1,9 @@
-import { extensionActiveStorage, updateIntervalStorage, countModeStorage, type CountMode } from "@/utils/storage-helpers"
+import {
+  extensionActiveStorage,
+  updateIntervalStorage,
+  countModeStorage,
+  type CountMode,
+} from "@/utils/storage-helpers"
 import Toggle from "@/components/toggle"
 import { i18n } from "#imports"
 
@@ -91,4 +96,3 @@ function App() {
 }
 
 export default App
-
