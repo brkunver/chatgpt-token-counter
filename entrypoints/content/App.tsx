@@ -119,7 +119,7 @@ export default function App() {
   return (
     <div
       id="token-counter"
-      className="font-main fixed top-2 left-1/2 z-[999999] flex w-fit -translate-x-1/2 gap-2 rounded bg-[#121212] p-2 text-sm text-white xl:top-32 xl:right-4 xl:left-auto xl:translate-x-0 xl:flex-col"
+      className="font-main fixed top-2 left-1/2 z-999999 flex w-fit -translate-x-1/2 gap-2 rounded bg-[#121212] p-2 text-sm text-white xl:top-32 xl:right-4 xl:left-auto xl:translate-x-0 xl:flex-col"
     >
       <p className="flex justify-between gap-2">
         <span>{tokenCount}</span>
