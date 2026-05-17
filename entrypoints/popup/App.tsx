@@ -1,9 +1,6 @@
-import {
-  extensionActiveStorage,
-  updateIntervalStorage,
-  countModeStorage,
-  type CountMode,
-} from "@/utils/storage-helpers"
+import { extensionActiveStorage, updateIntervalStorage, countModeStorage } from "@/utils/storage-helpers"
+import { normalizeCountMode, normalizeUpdateInterval, type CountMode } from "@/utils/settings-validation"
+import { DEFAULT_UPDATE_INTERVAL, MAX_UPDATE_INTERVAL, MIN_UPDATE_INTERVAL } from "@/utils/constants"
 import Toggle from "@/components/toggle"
 import { i18n } from "#imports"
 
@@ -11,39 +8,95 @@ function App() {
   const [updateInterval, setUpdateInterval] = useState<number>(1000)
   const [isExtensionActive, setIsExtensionActive] = useState<boolean>(true)
   const [countMode, setCountMode] = useState<CountMode>("words")
+  const [settingsError, setSettingsError] = useState<string | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
 
-  console.log(isExtensionActive, updateInterval, countMode)
+  if (import.meta.env.DEV) {
+    console.log(isExtensionActive, updateInterval, countMode)
+  }
 
   useEffect(() => {
-    extensionActiveStorage.watch(value => setIsExtensionActive(value))
-    updateIntervalStorage.watch(value => setUpdateInterval(value))
-    countModeStorage.watch(value => setCountMode(value))
+    const unwatchActive = extensionActiveStorage.watch(value => setIsExtensionActive(value))
+    const unwatchInterval = updateIntervalStorage.watch(value => setUpdateInterval(normalizeUpdateInterval(value)))
+    const unwatchCountMode = countModeStorage.watch(value => setCountMode(normalizeCountMode(value)))
 
     async function InitActive() {
-      let isActive = await extensionActiveStorage.getValue()
-      setIsExtensionActive(isActive)
+      try {
+        const isActive = await extensionActiveStorage.getValue()
+        setIsExtensionActive(isActive)
+      } catch (error) {
+        setIsExtensionActive(true)
+        setSettingsError(i18n.t("popup.loadSettingsFailed"))
+
+        if (import.meta.env.DEV) {
+          console.error("Token Counter failed to read active setting:", error)
+        }
+      }
     }
 
     async function InitInterval() {
-      let interval = await updateIntervalStorage.getValue()
-      setUpdateInterval(interval)
+      try {
+        const interval = await updateIntervalStorage.getValue()
+        setUpdateInterval(normalizeUpdateInterval(interval))
+      } catch (error) {
+        setUpdateInterval(DEFAULT_UPDATE_INTERVAL)
+        setSettingsError(i18n.t("popup.loadSettingsFailed"))
+
+        if (import.meta.env.DEV) {
+          console.error("Token Counter failed to read interval setting:", error)
+        }
+      }
     }
 
     async function InitCountMode() {
-      let mode = await countModeStorage.getValue()
-      setCountMode(mode)
+      try {
+        const mode = await countModeStorage.getValue()
+        setCountMode(normalizeCountMode(mode))
+      } catch (error) {
+        setCountMode("words")
+        setSettingsError(i18n.t("popup.loadSettingsFailed"))
+
+        if (import.meta.env.DEV) {
+          console.error("Token Counter failed to read count mode setting:", error)
+        }
+      }
     }
 
     InitActive()
     InitInterval()
     InitCountMode()
+
+    return () => {
+      unwatchActive()
+      unwatchInterval()
+      unwatchCountMode()
+    }
   }, [])
 
-  function onSaveChanges() {
-    updateIntervalStorage.setValue(updateInterval)
-    extensionActiveStorage.setValue(isExtensionActive)
-    countModeStorage.setValue(countMode)
-    window.close()
+  async function onSaveChanges() {
+    setIsSaving(true)
+    setSettingsError(null)
+
+    try {
+      const safeUpdateInterval = normalizeUpdateInterval(updateInterval)
+      const safeCountMode = normalizeCountMode(countMode)
+
+      await Promise.all([
+        updateIntervalStorage.setValue(safeUpdateInterval),
+        extensionActiveStorage.setValue(isExtensionActive),
+        countModeStorage.setValue(safeCountMode),
+      ])
+
+      window.close()
+    } catch (error) {
+      setSettingsError(i18n.t("popup.saveSettingsFailed"))
+
+      if (import.meta.env.DEV) {
+        console.error("Token Counter failed to save settings:", error)
+      }
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   return (
@@ -62,11 +115,12 @@ function App() {
         </label>
         <input
           type="number"
-          min={10}
-          max={10000}
+          min={MIN_UPDATE_INTERVAL}
+          max={MAX_UPDATE_INTERVAL}
           step={1}
           value={updateInterval}
           id="update-interval"
+          onBlur={e => setUpdateInterval(normalizeUpdateInterval(e.target.value))}
           onChange={e => setUpdateInterval(Number(e.target.value))}
           className="w-28 rounded-md border border-gray-300 bg-gray-50 px-2 py-1 text-base text-gray-900 focus:border-green-400 focus:ring-2 focus:ring-green-400 focus:outline-none"
         />
@@ -88,9 +142,11 @@ function App() {
       <button
         className="mt-2 w-full cursor-pointer rounded-lg bg-green-500 py-2 font-semibold text-white shadow-md transition-colors hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:outline-none active:bg-green-700"
         onClick={onSaveChanges}
+        disabled={isSaving}
       >
-        {i18n.t("popup.saveChanges")}
+        {isSaving ? i18n.t("popup.saving") : i18n.t("popup.saveChanges")}
       </button>
+      {settingsError && <p className="text-sm font-medium text-red-700">{settingsError}</p>}
     </main>
   )
 }

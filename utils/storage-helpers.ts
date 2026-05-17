@@ -1,7 +1,6 @@
 import { storage } from "#imports"
 import { DEFAULT_UPDATE_INTERVAL } from "@/utils/constants"
-
-export type CountMode = "words" | "characters"
+import type { CountMode } from "@/utils/settings-validation"
 
 let extensionActiveStorage = storage.defineItem<boolean>("local:extension-active", {
   fallback: true,
