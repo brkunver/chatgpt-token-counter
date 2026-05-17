@@ -131,7 +131,7 @@ There is no dedicated automated test suite in this repository at the time of wri
 
 For most changes:
 
-1. Run `bun run compile`.
+1. Run `pnpm run compile`.
 2. Run the relevant WXT dev server or build command.
 3. Manually verify the extension on `https://chatgpt.com/`.
 4. Check that the popup setting changes propagate to the content overlay.
