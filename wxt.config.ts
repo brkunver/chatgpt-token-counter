@@ -20,6 +20,13 @@ export default defineConfig({
     description: "__MSG_extDescription__",
     default_locale: "en",
     permissions: ["storage"],
+    browser_specific_settings: {
+      gecko: {
+        data_collection_permissions: {
+          required: ["none"],
+        },
+      },
+    },
     web_accessible_resources: [{ resources: ["fonts/*"], matches: ["*://chatgpt.com/*"] }],
   },
   vite: () => ({
