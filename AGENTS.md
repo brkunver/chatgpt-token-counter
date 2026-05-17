@@ -7,7 +7,7 @@ It counts ChatGPT conversation content in real time and displays an overlay on `
 
 The extension currently shows:
 
-- GPT-4o token count for all visible user and assistant messages.
+- GPT-5.x token count for all visible user and assistant messages.
 - Either word count or character count, depending on the popup setting.
 - A popup UI for enabling/disabling the extension, changing the polling interval, and choosing the secondary count mode.
 
@@ -20,24 +20,24 @@ Published extension links are listed in `README.md`.
 - TypeScript.
 - Tailwind CSS 4 via `@tailwindcss/vite`.
 - `@wxt-dev/i18n` for localization.
-- `gpt-tokenizer/model/gpt-4o` for token counting.
-- Bun is the package manager, as indicated by `bun.lock` and package scripts.
+- `gpt-tokenizer/model/gpt-5` for token counting.
+- Pnpm is the package manager, as indicated by `pnpm-lock.yaml` and package scripts.
 
 ## Important Commands
 
 Run commands from the repository root.
 
-- `bun install` - install dependencies and run WXT preparation through `postinstall`.
-- `bun run dev` - start WXT development mode for Chromium.
-- `bun run dev:firefox` - start WXT development mode for Firefox.
-- `bun run build` - build the Chromium extension.
-- `bun run build:firefox` - build the Firefox extension.
-- `bun run zip` - package the Chromium extension.
-- `bun run zip:firefox` - package the Firefox extension.
-- `bun run build:all` - package both browser targets.
-- `bun run compile` - run TypeScript type checking with `tsc --noEmit`.
+- `pnpm install` - install dependencies and run WXT preparation through `postinstall`.
+- `pnpm run dev` - start WXT development mode for Chromium.
+- `pnpm run dev:firefox` - start WXT development mode for Firefox.
+- `pnpm run build` - build the Chromium extension.
+- `pnpm run build:firefox` - build the Firefox extension.
+- `pnpm run zip` - package the Chromium extension.
+- `pnpm run zip:firefox` - package the Firefox extension.
+- `pnpm run build:all` - package both browser targets.
+- `pnpm run compile` - run TypeScript type checking with `tsc --noEmit`.
 
-Before finishing code changes, prefer at least `bun run compile`. For extension packaging or release-related changes, also run the relevant build or zip command.
+Before finishing code changes, prefer at least `pnpm run compile`. For extension packaging or release-related changes, also run the relevant build or zip command.
 
 ## Repository Structure
 
@@ -108,7 +108,7 @@ When adding or changing UI text:
 
 ## Coding Conventions
 
-- Keep TypeScript strictness healthy; run `bun run compile` after code changes.
+- Keep TypeScript strictness healthy; run `pnpm run compile` after code changes.
 - Follow the existing formatting style: double quotes, no semicolons, concise functions.
 - Prefer WXT APIs imported from `#imports` where the project already uses them.
 - Use the `@/` alias for project imports and `~/` where existing WXT asset imports use it.
@@ -164,6 +164,6 @@ The package version is in `package.json`.
 When preparing a release:
 
 - Update the version intentionally.
-- Run `bun run compile`.
-- Run `bun run build` and `bun run build:firefox` or the relevant zip commands.
+- Run `pnpm run compile`.
+- Run `pnpm run build` and `pnpm run build:firefox` or the relevant zip commands.
 - Confirm generated artifacts target both Chromium and Firefox if both stores are being updated.
