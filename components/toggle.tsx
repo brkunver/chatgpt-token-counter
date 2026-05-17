@@ -20,7 +20,7 @@ function Toggle(props: ToggleProps) {
     <label
       htmlFor={inputId}
       className={
-        "relative block h-8 w-14 rounded-full bg-gray-300 transition-colors [-webkit-tap-highlight-color:_transparent] " +
+        "relative block h-8 w-14 rounded-full bg-gray-300 transition-colors [-webkit-tap-highlight-color:transparent] " +
         (checked ? "bg-green-500" : "bg-gray-300") +
         (disabled ? " cursor-not-allowed opacity-50" : " cursor-pointer")
       }
@@ -35,7 +35,7 @@ function Toggle(props: ToggleProps) {
       />
       <span
         className={
-          "absolute inset-y-0 start-0 m-1 size-6 rounded-full bg-white transition-[inset-inline-start] peer-checked:start-6"
+          "absolute inset-y-0 inset-s-0 m-1 size-6 rounded-full bg-white transition-[inset-inline-start] peer-checked:inset-s-6"
         }
       ></span>
       {label && <span className="ml-4 align-middle text-sm select-none">{label}</span>}

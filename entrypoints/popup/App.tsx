@@ -100,7 +100,7 @@ function App() {
   }
 
   return (
-    <main className="flex min-w-[320px] flex-col gap-6 rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-200 p-6 shadow-xl">
+    <main className="flex min-w-[320px] flex-col gap-6 rounded-2xl border border-gray-200 bg-linear-to-br from-gray-50 to-gray-200 p-6 shadow-xl">
       <h1 className="mb-2 text-center text-3xl font-bold tracking-tight text-gray-900">{i18n.t("extName")}</h1>
       <h2 className="mb-4 text-center text-lg font-semibold text-gray-700">{i18n.t("popup.settings")}</h2>
       <div className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm">
