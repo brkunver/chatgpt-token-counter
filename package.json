@@ -23,15 +23,15 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.2.4",
+    "@tailwindcss/vite": "^4.3.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@wxt-dev/module-react": "^1.2.2",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "tailwindcss": "^4.2.4",
+    "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3",
-    "wxt": "^0.20.25"
+    "wxt": "^0.20.26"
   },
   "trustedDependencies": [
     "@tailwindcss/oxide",
