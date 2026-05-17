@@ -10,12 +10,13 @@ The extension currently shows:
 - GPT-5.x token count for all visible user and assistant messages.
 - Either word count or character count, depending on the popup setting.
 - A popup UI for enabling/disabling the extension, changing the polling interval, and choosing the secondary count mode.
+- A dev-only extension name prefix: development manifests start the extension name with `DEV | `.
 
 Published extension links are listed in `README.md`.
 
 ## Tech Stack
 
-- WXT for browser extension structure and builds.
+- WXT 0.20.x for browser extension structure and builds.
 - React 19 for content and popup UIs.
 - TypeScript.
 - Tailwind CSS 4 via `@tailwindcss/vite`.
@@ -54,7 +55,7 @@ Before finishing code changes, prefer at least `pnpm run compile`. For extension
 - `locales/*.yml` contains localized strings used through `i18n.t(...)`.
 - `assets/tailwind.css` contains global Tailwind/CSS setup.
 - `public/icon/*` and `public/fonts/*` contain extension assets.
-- `wxt.config.ts` configures WXT, i18n, React, permissions, and web-accessible font resources.
+- `wxt.config.ts` configures WXT, i18n, React, permissions, web-accessible font resources, and build hooks.
 
 ## Runtime Behavior
 
@@ -84,6 +85,12 @@ The background script:
 
 - On initial install, sets the extension to active.
 - Initializes the update interval with `DEFAULT_UPDATE_INTERVAL`.
+
+The WXT config:
+
+- Uses the `build:manifestGenerated` hook to prefix the generated extension name with `DEV | ` only when `wxt.config.mode` is `"development"`.
+- Also prefixes `manifest.action.default_title` in development when WXT has generated one from the popup HTML title.
+- Leaves production builds on the normal localized extension name.
 
 ## Storage Keys
 
@@ -123,6 +130,7 @@ When adding or changing UI text:
 - Changes under `entrypoints/popup/*` affect the browser action popup only.
 - Changes under `entrypoints/background.ts` affect install/update lifecycle behavior.
 - Changes to `wxt.config.ts`, permissions, matches, icons, fonts, or web-accessible resources can affect store review and runtime compatibility.
+- Changes to `wxt.config.ts` hooks can affect generated manifest fields; verify the emitted `.output/**/manifest.json`, especially for dev/prod naming differences.
 - If adding assets that content scripts need to load, ensure they are exposed through `web_accessible_resources`.
 
 ## Testing Guidance
@@ -148,6 +156,12 @@ For localization changes:
 - Confirm every locale file has the new key.
 - Confirm fallback behavior still works through WXT i18n.
 
+For manifest hook changes:
+
+- Run `pnpm run compile`.
+- Run a production build and confirm `.output/chrome-mv3/manifest.json` keeps `name` as `__MSG_extName__`.
+- Run `pnpm exec wxt build --mode development` and confirm `.output/chrome-mv3-dev/manifest.json` starts `name` with `DEV | `.
+
 ## Common Pitfalls
 
 - Do not duplicate storage keys in components; use `utils/storage-helpers.ts`.
@@ -156,6 +170,7 @@ For localization changes:
 - Do not place popup-only UI state in content-script local state if it must persist.
 - Do not assume ChatGPT DOM structure is stable. Prefer small, localized selector changes.
 - Do not remove shadow-root mounting casually; it protects the overlay from page CSS conflicts.
+- Do not hard-code the dev prefix into locale files; keep it in the WXT manifest hook so production localization stays clean.
 
 ## Release Notes
 
