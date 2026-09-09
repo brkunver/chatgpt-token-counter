@@ -1,3 +1,4 @@
+import { i18n } from "#imports"
 import ReactDOM from "react-dom/client"
 import App from "./App.tsx"
 import "~/assets/tailwind.css"
@@ -11,7 +12,7 @@ function showMountError(error: unknown) {
 
   const fallback = document.createElement("div")
   fallback.id = "token-counter-mount-error"
-  fallback.textContent = "Token Counter failed to start"
+  fallback.textContent = i18n.t("content.mountFailed")
   fallback.style.cssText =
     "position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:999999;background:#121212;color:#fecaca;padding:8px 10px;border-radius:4px;font:12px sans-serif;"
   document.documentElement.appendChild(fallback)
@@ -54,7 +55,7 @@ export default defineContentScript({
           root?.unmount()
         },
       })
-      setTimeout(() => {
+      ctx.setTimeout(() => {
         try {
           ui.mount()
         } catch (error) {

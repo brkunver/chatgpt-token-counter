@@ -19,3 +19,5 @@ content:
   characters: "Zeichen"
   counterPaused: "Zähler pausiert. Neuer Versuch..."
   counterMayBeInaccurate: "Zähler kann ungenau sein"
+  countScope: "Geschätzte Tokens im geladenen Nachrichtentext (GPT-5-Tokenizer). Kein Gesamtverbrauch des Modells; Anhänge und verborgener Kontext sind ausgeschlossen."
+  mountFailed: "Token-Zähler konnte nicht gestartet werden"

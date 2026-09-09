@@ -19,3 +19,5 @@ content:
   characters: "Tekens"
   counterPaused: "Teller gepauzeerd. Opnieuw proberen..."
   counterMayBeInaccurate: "Teller kan onnauwkeurig zijn"
+  countScope: "Geschatte tokens in geladen berichttekst (GPT-5-tokenizer). Niet het totale modelgebruik; bijlagen en verborgen context zijn uitgesloten."
+  mountFailed: "Token-teller kon niet worden gestart"

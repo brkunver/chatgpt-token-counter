@@ -16,29 +16,29 @@ Published extension links are listed in `README.md`.
 
 ## Tech Stack
 
-- WXT 0.20.x for browser extension structure and builds.
+- WXT 0.21.x for browser extension structure and builds.
 - React 19 for content and popup UIs.
 - TypeScript.
 - Tailwind CSS 4 via `@tailwindcss/vite`.
 - `@wxt-dev/i18n` for localization.
 - `gpt-tokenizer/model/gpt-5` for token counting.
-- Pnpm is the package manager, as indicated by `pnpm-lock.yaml` and package scripts.
+- Bun is the package manager, as indicated by `bun.lock` and package scripts.
 
 ## Important Commands
 
 Run commands from the repository root.
 
-- `pnpm install` - install dependencies and run WXT preparation through `postinstall`.
-- `pnpm run dev` - start WXT development mode for Chromium.
-- `pnpm run dev:firefox` - start WXT development mode for Firefox.
-- `pnpm run build` - build the Chromium extension.
-- `pnpm run build:firefox` - build the Firefox extension.
-- `pnpm run zip` - package the Chromium extension.
-- `pnpm run zip:firefox` - package the Firefox extension.
-- `pnpm run build:all` - package both browser targets.
-- `pnpm run compile` - run TypeScript type checking with `tsc --noEmit`.
+- `bun install` - install dependencies and run WXT preparation through `postinstall`.
+- `bun run dev` - start WXT development mode for Chromium.
+- `bun run dev:firefox` - start WXT development mode for Firefox.
+- `bun run build` - build the Chromium extension.
+- `bun run build:firefox` - build the Firefox extension.
+- `bun run zip` - package the Chromium extension.
+- `bun run zip:firefox` - package the Firefox extension.
+- `bun run zip:all` - package both browser targets.
+- `bun run compile` - run TypeScript type checking with `tsc --noEmit`.
 
-Before finishing code changes, prefer at least `pnpm run compile`. For extension packaging or release-related changes, also run the relevant build or zip command.
+Before finishing code changes, prefer at least `bun run compile`. For extension packaging or release-related changes, also run the relevant build or zip command.
 
 ## Repository Structure
 
@@ -72,8 +72,8 @@ The content app:
 - Polls ChatGPT message elements at the configured interval.
 - Reads user messages from `[data-message-author-role="user"]`.
 - Reads assistant messages from `[data-message-author-role="assistant"]`.
-- Concatenates both sets of text and calculates token, word, and character counts.
-- Hides itself when `local:extension-active` is false.
+- Counts each message separately and caches unchanged message counts.
+- Hides itself and stops polling when `local:extension-active` is false.
 
 The popup app:
 
@@ -115,7 +115,7 @@ When adding or changing UI text:
 
 ## Coding Conventions
 
-- Keep TypeScript strictness healthy; run `pnpm run compile` after code changes.
+- Keep TypeScript strictness healthy; run `bun run compile` after code changes.
 - Follow the existing formatting style: double quotes, no semicolons, concise functions.
 - Prefer WXT APIs imported from `#imports` where the project already uses them.
 - Use the `@/` alias for project imports and `~/` where existing WXT asset imports use it.
@@ -135,11 +135,11 @@ When adding or changing UI text:
 
 ## Testing Guidance
 
-There is no dedicated automated test suite in this repository at the time of writing.
+Run `bun run test` for settings, text extraction, counting, and polling regression checks.
 
 For most changes:
 
-1. Run `pnpm run compile`.
+1. Run `bun run compile`.
 2. Run the relevant WXT dev server or build command.
 3. Manually verify the extension on `https://chatgpt.com/`.
 4. Check that the popup setting changes propagate to the content overlay.
@@ -158,9 +158,9 @@ For localization changes:
 
 For manifest hook changes:
 
-- Run `pnpm run compile`.
+- Run `bun run compile`.
 - Run a production build and confirm `.output/chrome-mv3/manifest.json` keeps `name` as `__MSG_extName__`.
-- Run `pnpm exec wxt build --mode development` and confirm `.output/chrome-mv3-dev/manifest.json` starts `name` with `DEV | `.
+- Run `bunx wxt build --mode development` and confirm `.output/chrome-mv3-dev/manifest.json` starts `name` with `DEV | `.
 
 ## Common Pitfalls
 
@@ -179,6 +179,6 @@ The package version is in `package.json`.
 When preparing a release:
 
 - Update the version intentionally.
-- Run `pnpm run compile`.
-- Run `pnpm run build` and `pnpm run build:firefox` or the relevant zip commands.
+- Run `bun run compile`.
+- Run `bun run build` and `bun run build:firefox` or the relevant zip commands.
 - Confirm generated artifacts target both Chromium and Firefox if both stores are being updated.

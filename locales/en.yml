@@ -19,3 +19,5 @@ content:
   characters: "Characters"
   counterPaused: "Counter paused. Retrying..."
   counterMayBeInaccurate: "Counter may be inaccurate"
+  countScope: "Estimated tokens in loaded message text (GPT-5 tokenizer). Not total model usage; attachments and hidden context are excluded."
+  mountFailed: "Token Counter failed to start"

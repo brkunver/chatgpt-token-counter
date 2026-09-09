@@ -19,3 +19,5 @@ content:
   characters: "Caracteres"
   counterPaused: "Contador pausado. Tentando novamente..."
   counterMayBeInaccurate: "O contador pode estar impreciso"
+  countScope: "Estimativa de tokens no texto das mensagens carregadas (tokenizador GPT-5). Não é o uso total do modelo; anexos e contexto oculto são excluídos."
+  mountFailed: "Não foi possível iniciar o contador de tokens"

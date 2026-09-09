@@ -19,3 +19,5 @@ content:
   characters: "文字"
   counterPaused: "カウンターを一時停止しました。再試行中..."
   counterMayBeInaccurate: "カウントが不正確な可能性があります"
+  countScope: "読み込まれたメッセージ本文の推定トークン数（GPT-5トークナイザー）。モデルの総使用量ではなく、添付ファイルや非表示のコンテキストは含みません。"
+  mountFailed: "トークンカウンターを開始できませんでした"

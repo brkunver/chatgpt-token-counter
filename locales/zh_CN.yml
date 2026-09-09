@@ -19,3 +19,5 @@ content:
   characters: "字符"
   counterPaused: "计数器已暂停。正在重试..."
   counterMayBeInaccurate: "计数可能不准确"
+  countScope: "已加载消息文本的估算 token 数（GPT-5 分词器）。并非模型的总用量；不包含附件和隐藏上下文。"
+  mountFailed: "无法启动 token 计数器"

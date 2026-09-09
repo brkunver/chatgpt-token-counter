@@ -19,3 +19,5 @@ content:
   characters: "Karakterler"
   counterPaused: "Sayaç durakladı. Tekrar deneniyor..."
   counterMayBeInaccurate: "Sayaç hatalı olabilir"
+  countScope: "Yüklü mesaj metninin tahmini token sayısıdır (GPT-5 tokenizer). Modelin toplam kullanımı değildir; ekler ve gizli bağlam dahil edilmez."
+  mountFailed: "Token Sayacı başlatılamadı"

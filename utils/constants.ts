@@ -1,3 +1,3 @@
 export const DEFAULT_UPDATE_INTERVAL = 500
-export const MIN_UPDATE_INTERVAL = 10
+export const MIN_UPDATE_INTERVAL = 100
 export const MAX_UPDATE_INTERVAL = 10000

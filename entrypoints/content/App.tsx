@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
-import { watchChatMessages, type ChatMessagesHealth } from "@/utils/poll-chat-messages"
-import { tokenCounter } from "@/utils/token-counter"
-import { wordCounter } from "@/utils/word-counter"
-import { characterCounter } from "@/utils/character-counter"
+import { watchChatMessages } from "@/utils/poll-chat-messages"
+import { createConversationCounter } from "@/utils/conversation-counter"
 import { extensionActiveStorage, updateIntervalStorage, countModeStorage } from "@/utils/storage-helpers"
 import { normalizeCountMode, normalizeUpdateInterval, type CountMode } from "@/utils/settings-validation"
 
@@ -14,7 +12,7 @@ export default function App() {
   const [tokenCount, setTokenCount] = useState(0)
   const [wordCount, setWordCount] = useState(0)
   const [charCount, setCharCount] = useState(0)
-  const [isExtensionActive, setIsExtensionActive] = useState<boolean>(true)
+  const [isExtensionActive, setIsExtensionActive] = useState<boolean>(false)
   const [countInterval, setCountInterval] = useState<number>(DEFAULT_UPDATE_INTERVAL)
   const [countMode, setCountMode] = useState<CountMode>("words")
   const [counterIssue, setCounterIssue] = useState<"warning" | "error" | null>(null)
@@ -24,40 +22,21 @@ export default function App() {
   }
 
   useEffect(() => {
-    function handleHealthChange(health: ChatMessagesHealth) {
-      if (health.status === "warning") {
-        setCounterIssue(currentIssue => (currentIssue === "error" ? currentIssue : "warning"))
-        return
+    if (!isExtensionActive) return
+    const countConversation = createConversationCounter()
+    return watchChatMessages((messages, health) => {
+      try {
+        const counts = countConversation(messages)
+        setTokenCount(counts.tokens)
+        setWordCount(counts.words)
+        setCharCount(counts.characters)
+        setCounterIssue(health.status === "warning" ? "warning" : null)
+      } catch (error) {
+        setCounterIssue("error")
+        if (import.meta.env.DEV) console.error("Token Counter failed to update counts:", error)
       }
-
-      setCounterIssue(currentIssue => (currentIssue === "warning" ? null : currentIssue))
-    }
-
-    const stopPolling = watchChatMessages(
-      messages => {
-        const conversationText = messages.join("\n")
-
-        try {
-          setTokenCount(tokenCounter(conversationText))
-          setWordCount(wordCounter(conversationText))
-          setCharCount(characterCounter(conversationText))
-          setCounterIssue(null)
-        } catch (error) {
-          setCounterIssue("error")
-
-          if (import.meta.env.DEV) {
-            console.error("Token Counter failed to update counts:", error)
-          }
-        }
-      },
-      countInterval,
-      { onHealthChange: handleHealthChange },
-    )
-
-    return () => {
-      stopPolling()
-    }
-  }, [countInterval])
+    }, countInterval)
+  }, [countInterval, isExtensionActive])
 
   useEffect(() => {
     const unwatchActive = extensionActiveStorage.watch(value => setIsExtensionActive(value))
@@ -119,15 +98,16 @@ export default function App() {
   return (
     <div
       id="token-counter"
-      className="font-main fixed top-2 left-1/2 z-999999 flex w-fit -translate-x-1/2 gap-2 rounded bg-[#121212] p-2 text-sm text-white xl:top-32 xl:right-4 xl:left-auto xl:translate-x-0 xl:flex-col"
+      title={i18n.t("content.countScope")}
+      className="font-main fixed top-2 left-1/2 z-999999 flex w-fit -translate-x-1/2 flex-wrap gap-2 rounded bg-[#121212] p-2 text-sm text-white xl:top-32 xl:right-4 xl:left-auto xl:translate-x-0 xl:flex-col"
     >
       <p className="flex justify-between gap-2">
-        <span>{tokenCount}</span>
+        <span>{counterIssue === "error" ? "—" : tokenCount}</span>
         <span className="text-gray-400">{i18n.t("content.tokens")}</span>
       </p>
 
       <p className="flex justify-between gap-2">
-        <span>{countMode === "words" ? wordCount : charCount}</span>
+        <span>{counterIssue === "error" ? "—" : countMode === "words" ? wordCount : charCount}</span>
         <span className="text-gray-400">
           {countMode === "words" ? i18n.t("content.words") : i18n.t("content.characters")}
         </span>
